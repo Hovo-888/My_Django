@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Prod{% endblock %}
+
+{% block name %}Prod page{% endblock %}
+
+{% block content %}
+    {% for i in product_list %}
+        {% for j in i.cat_prod.all %}
+            <h4>{{ j.name }}</h4>
+            <img src="{{ j.img.url }}" width="300px" alt="">
+            <p>{{ j.price }}</p>
+            <form action="{% url 'add_to_cart' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="prod_id" value="{{ j.id }}">Add To Cart</button>
+            </from>
+            <hr>
+        {% endfor %}
+    {% endfor %}    
+{% endblock %}
